@@ -14,7 +14,7 @@ public class M_Keyosk_Set_Menu_Image_FirstUI {
 	public void init(){
 		
 		main.menu_image = new Panel(new GridLayout(2,3,50,30));
-		main.switch_panel(M_Keyosk_UI.SET_MENU_FIRST);
+		main.switch_panel();
 		
 		main.menu_image.add(main.bigmag_set_label);
 		main.menu_image.add(main.bulgogi_set_label);
