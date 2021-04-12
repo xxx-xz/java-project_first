@@ -48,7 +48,7 @@ public class M_Keyosk_UI implements ActionListener{
 	public void init() {
 		f = new Frame("MacKeyosk");
 		top_ad_panel = new Panel();
-		menu_btn_panel = new Panel(new GridLayout(4,1));
+		menu_btn_panel = new Panel(new GridLayout(4,1,0,5));
 		menu_image_panel = new Panel();
 		menu_image_panel.setLayout(new GridBagLayout());
 		page_panel = new Panel();
@@ -84,7 +84,7 @@ public class M_Keyosk_UI implements ActionListener{
 		ImageIcon cheesestick = new ImageIcon("keyosk_images/cheesestick.PNG");
 		ImageIcon eggmuffin = new ImageIcon("keyosk_images/eggmuffin.PNG");
 		ImageIcon frenchfries = new ImageIcon("keyosk_images/frenchfries.PNG");
-		ImageIcon hotcake = new ImageIcon("keyosk_images/hotcake.jpg");
+		ImageIcon hotcake = new ImageIcon("keyosk_images/hotcake.png");
 		ImageIcon icecream = new ImageIcon("keyosk_images/icecream.PNG");
 		ImageIcon macnugget = new ImageIcon("keyosk_images/macnugget.PNG");
 		ImageIcon cheesemuffin = new ImageIcon("keyosk_images/cheesemuffin.PNG");
