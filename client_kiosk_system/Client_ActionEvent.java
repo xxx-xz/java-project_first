@@ -24,7 +24,6 @@ public class Client_ActionEvent implements ActionListener{
 		Object obj = e.getSource();
 		/** ��Ʈ�޴� **/
 		if(obj == Client_UI.menu_list.get(0)){
-			System.out.println("��Ƽ�Ʈ��ưŬ��");
 			menu = dao.menu_click_result("BIGMAC_SET");
 			menu_list(menu);
 		}else if(obj == Client_UI.menu_list.get(1)) {
@@ -126,10 +125,10 @@ public class Client_ActionEvent implements ActionListener{
 	}
 	public void menu_list(MenuVO menu) {
 		if(menu.getMenu().equals("DOUCHEESE_SET") || menu.getMenu().equals("EGGBULGOGI_SET")){
-			Client_UI.order_menu.append(menu.getMenu_kor() + "\t\t\t\t" + 1 + "\t\t\t\t\t" + menu.getPrice() + "\n");
+			Client_UI.order_menu.append(menu.getMenu_kor() + "\t\t\t" + 1 + "\t\t\t\t" + menu.getPrice() + "\n");
 			Client_UI.order_menu_list.add(menu);
 		}else {
-			Client_UI.order_menu.append(menu.getMenu_kor() + "\t\t\t\t\t" + 1 + "\t\t\t\t\t" + menu.getPrice() + "\n");
+			Client_UI.order_menu.append(menu.getMenu_kor() + "\t\t\t\t" + 1 + "\t\t\t\t" + menu.getPrice() + "\n");
 			Client_UI.order_menu_list.add(menu);
 		}
 	

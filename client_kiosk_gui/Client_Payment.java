@@ -27,7 +27,7 @@ public class Client_Payment implements ActionListener{
 		int total_price = 0;
 		payment1 = new JButton("결제하기");
 		cancle1 = new JButton("취소");
-		payment1.setBackground(Color.green);
+		payment1.setBackground(new Color(0,170,0));
 		cancle1.setBackground(Color.red);
 		
 		for(MenuVO pricelist : Client_UI.order_menu_list) {
@@ -36,18 +36,20 @@ public class Client_Payment implements ActionListener{
 
 		JLabel price = new JLabel("총 금액 " + String.valueOf(total_price) + "원");
 		Font font = new Font("맑은 고딕",Font.BOLD,30);
+		Font jta_font = new Font("맑은 고딕",Font.BOLD,13);
 		price.setFont(font);
 		price_panel.add(price);
 		btn_panel.add(payment1);
 		btn_panel.add(cancle1);
 		JTextArea jta = new JTextArea(7,20);
 		JScrollPane jp = new JScrollPane(jta);
-		jta.append("메뉴\t\t\t수량\t\t\t가격\n");
+		jta.setFont(jta_font);
+		jta.append("메뉴\t\t수량\t\t가격\n");
 		for(MenuVO vo : Client_UI.order_menu_list) {
 			if(vo.getMenu().equals("DOUCHEESE_SET") || vo.getMenu().equals("EGGBULGOGI_SET")) {
-				jta.append(vo.getMenu_kor() + "\t\t" + "1" + "\t\t\t" + vo.getPrice() + "\n");
+				jta.append(vo.getMenu_kor() + "\t" + "1" + "\t\t" + vo.getPrice() + "\n");
 			}else {
-				jta.append(vo.getMenu_kor() + "\t\t\t" + "1" + "\t\t\t" + vo.getPrice() + "\n");
+				jta.append(vo.getMenu_kor() + "\t\t" + "1" + "\t\t" + vo.getPrice() + "\n");
 			}
 		}
 		payment1.addActionListener(this);

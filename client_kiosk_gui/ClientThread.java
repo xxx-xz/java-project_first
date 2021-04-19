@@ -22,7 +22,7 @@ public class ClientThread extends Thread implements ActionListener{
 	int watingnumber;
 	JButton reset;
 	JFrame jf;
-	public static ArrayList<Integer> wating_list = new ArrayList<Integer>();
+//	public static ArrayList<Integer> wating_list = new ArrayList<Integer>();
 	
 	public ClientThread (Client_Send send) {
 		ois = send.ois;
@@ -37,6 +37,7 @@ public class ClientThread extends Thread implements ActionListener{
 			while(true) {
 				
 				watingnumber = (int)ois.readObject();
+//				wating_list.add(watingnumber);
 				init();
 			}
 		} catch (Exception e) {
@@ -50,7 +51,7 @@ public class ClientThread extends Thread implements ActionListener{
 		
 		jf = new JFrame("결제완료");
 		JPanel jp = new JPanel(new BorderLayout());
-		JLabel jl = new JLabel("           대기번호");
+		JLabel jl = new JLabel("           결제완료");
 		JLabel wating = new JLabel(" 대기번호 " +number);
 		reset = new JButton("초기화면으로");
 		Font font = new Font("맑은 고딕",Font.BOLD,15);

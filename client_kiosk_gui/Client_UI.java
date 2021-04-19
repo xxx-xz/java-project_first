@@ -161,7 +161,8 @@ public class Client_UI implements ActionListener{
 		next.setFont(font);
 		payment.setFont(font);
 		cancle.setFont(font);
-		order_menu.append("메뉴\t\t\t\t\t수량\t\t\t\t\t가격\n");
+		order_menu.setFont(font);
+		order_menu.append("메뉴\t\t\t\t수량\t\t\t\t가격\n");
 		
 		count = new JLabel("주문수량");
 		price = new JLabel("주문금액");
@@ -173,7 +174,7 @@ public class Client_UI implements ActionListener{
 		
 		previous.setBackground(Color.white);
 		next.setBackground(Color.white);
-		payment.setBackground(Color.green);
+		payment.setBackground(new Color(0,170,0));
 		cancle.setBackground(Color.red);
 		
 		

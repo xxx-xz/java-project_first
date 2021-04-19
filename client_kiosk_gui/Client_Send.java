@@ -25,9 +25,7 @@ public class Client_Send {
 	}
 	
 	public void init() throws Exception{
-		for(MenuVO vo : order_list) {
-			System.out.println(vo.getMenu() + vo.getPrice());
-		}
+		
 		s = new Socket("127.0.0.1",5555);
 		oos = new ObjectOutputStream(s.getOutputStream());
 		ois = new ObjectInputStream(s.getInputStream());
