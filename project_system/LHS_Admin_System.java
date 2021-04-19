@@ -8,7 +8,7 @@ public class LHS_Admin_System {
 	
 	LHS_Admin_MemberDAO mdao = new LHS_Admin_MemberDAO();
 	
-	public static boolean LOGIN_RESULT = false;
+	
 	
 	public LHS_Admin_System() {}
 
