@@ -32,6 +32,7 @@ public class LHS_Admin_MemberDAO extends LHS_Admin_DBConn{
 	public boolean getJoinResult(LHS_Admin_VO member) {
 		boolean result = false;
 		try {
+			System.out.println("dqdqdqdqdq");
 			String sql = "insert into admin_member values(?, ?, ?, ?)";
 			getPreparedStatement(sql);
 			
