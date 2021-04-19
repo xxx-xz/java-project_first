@@ -8,13 +8,12 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import project_system.Commons;
-import project_system.LHS_Admin_System;
 import project_vo.LHS_Admin_VO;
 
 public class LHS_Admin_UIEvent  implements ActionListener {
 	LHS_Admin_Login main;
 	LHS_Admin_Join ui;
-	LHS_Admin_System system;
+	
 	
 	
 	LHS_Admin_UIEvent(){}
@@ -22,10 +21,10 @@ public class LHS_Admin_UIEvent  implements ActionListener {
 		this.ui = ui;
 	}
 	
-	public LHS_Admin_UIEvent(LHS_Admin_Join ui, LHS_Admin_Login main, LHS_Admin_System system) {
+	public LHS_Admin_UIEvent(LHS_Admin_Join ui, LHS_Admin_Login main) {
 		this.main = main;
 		this.ui = ui;
-		this.system = system;
+		
 		
 	}
 	
@@ -51,8 +50,8 @@ public class LHS_Admin_UIEvent  implements ActionListener {
 				member.setHp1(jlist.get(2).getText());
 				member.setHp2(jlist.get(3).getText());
 				member.setHp3(jlist.get(4).getText());
-//				member.setMail1(jlist.get(5).getText());
-//				member.setMail2(jlist.get(6).getText());
+				member.setMail1(jlist.get(5).getText());
+				member.setMail2(jlist.get(6).getText());
 				System.out.println("Action2");
 				
 				boolean result = main.system.join(member);

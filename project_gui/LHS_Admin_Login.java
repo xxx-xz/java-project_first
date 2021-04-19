@@ -25,15 +25,17 @@ import project_system.Commons;
 import project_system.LHS_Admin_System;
 
 public class LHS_Admin_Login extends JFrame implements ActionListener {
-	public LHS_Admin_System system = new LHS_Admin_System();
+	static LHS_Admin_System system = new LHS_Admin_System();
+	
+	
     BufferedImage img = null;
     JTextField loginTextField;
     JPasswordField passwordField;
-    JButton join_bt;
-    JButton bt2;
+    JButton join_bt, passch_bt, login_bt;
     JLabel login_Label;
     JLabel Pass_Label;
     JLayeredPane layeredPane = new JLayeredPane();
+	
 	
 	public LHS_Admin_Login() {
 		init();
@@ -95,12 +97,15 @@ public class LHS_Admin_Login extends JFrame implements ActionListener {
         passwordField.setBorder(javax.swing.BorderFactory.createEmptyBorder());
         layeredPane.add(passwordField);
  
-        // 로그인버튼 추가
+        // 버튼 추가
         join_bt = new JButton("회원가입");
         join_bt.setBounds(115, 500, 100, 20);
         
-        bt2 = new JButton("로그인");
-        bt2.setBounds(245, 500, 100, 20);
+        login_bt = new JButton("로그인");
+        login_bt.setBounds(245, 500, 100, 20);
+        
+        passch_bt = new JButton("비밀번호 찾기");
+        passch_bt.setBounds(180, 550, 100, 20);
  
         // 버튼 투명처리
         join_bt.setBorderPainted(true);
@@ -108,7 +113,8 @@ public class LHS_Admin_Login extends JFrame implements ActionListener {
         join_bt.setContentAreaFilled(true);
  
         layeredPane.add(join_bt);
-        layeredPane.add(bt2);
+        layeredPane.add(login_bt);
+        layeredPane.add(passch_bt);
         layeredPane.add(login_Label);
         layeredPane.add(Pass_Label);
  
@@ -118,7 +124,7 @@ public class LHS_Admin_Login extends JFrame implements ActionListener {
         setVisible(true);
         
         join_bt.addActionListener(this);
-        bt2.addActionListener(this);
+        login_bt.addActionListener(this);
                                 
        join_bt.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent arg0) {
@@ -144,9 +150,10 @@ public class LHS_Admin_Login extends JFrame implements ActionListener {
          @Override
          public void actionPerformed(ActionEvent e) {
         	 Object obj = e.getSource();
-        	 if (obj == bt2) {
-        		 System.out.println("버튼 2");
+        	 if (obj == login_bt) {
         		 login_proc();
+        	 }else if(obj == passch_bt) {
+        		 passch_proc();
         	 }
          }
        public void login_proc() {
@@ -174,6 +181,9 @@ public class LHS_Admin_Login extends JFrame implements ActionListener {
         		 }
         	 }
          }
+       public void passch_proc() {
+    	   
+       }
 	}
 	
 
