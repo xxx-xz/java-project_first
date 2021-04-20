@@ -1,14 +1,13 @@
 package server_gui;
 
 import java.awt.Color;
-import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import javax.swing.ImageIcon;
@@ -37,7 +36,7 @@ public class Server_UI extends JFrame{
 	Socket s;
 	static int num = 1;
 	public static ServerThread st;
-	
+	static ArrayList<ObjectOutputStream> boos = new ArrayList<ObjectOutputStream>();
 	Server_ActionEvent event = new Server_ActionEvent(this,st);;
 //	static ArrayList<ObjectOutputStream> list = new ArrayList<ObjectOutputStream>();
 	
@@ -159,11 +158,14 @@ public class Server_UI extends JFrame{
 	public void serverStart() {
 		try {
 			server = new ServerSocket(5555);
-			System.out.println("--->서버시작.....");
+			System.out.println("--->서버1시작.....");
 			while(true) {
 				s = server.accept();
+				System.out.println("클라이언트 접속!!");
 				st = new ServerThread(s);
+				boos.add(st.oos);
 				st.start();
+				
 //				list.add(st.oos);
 //				System.out.println(list.get(0));
 			}
@@ -172,11 +174,15 @@ public class Server_UI extends JFrame{
 		}
 	}
 	
-	static public void Casting() {
+	synchronized static public void Casting() {
 		
 		try {
-			st.oos.writeObject(num);
+			for(ObjectOutputStream os : boos) {
+				System.out.println("대기번호 전송");
+				os.writeObject(num);
+			}
 			num++;
+			boos.clear();
 			
 		} catch (Exception e) {
 			e.printStackTrace();

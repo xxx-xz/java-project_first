@@ -1,12 +1,15 @@
 package server_kiosk_dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import client_kiosk_vo.MenuVO;
+import server_gui.Server_Sales;
 
 public class M_Kiosk_Server_DAO {
 	Connection conn;
@@ -15,6 +18,7 @@ public class M_Kiosk_Server_DAO {
 	String url = "jdbc:oracle:thin:@localhost:1521";
 	String user = "scott";
 	String pass = "tiger";
+	SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	
 	public M_Kiosk_Server_DAO() {
 		try {
@@ -35,7 +39,7 @@ public class M_Kiosk_Server_DAO {
 	}
 	
 	public void insertorder(ArrayList<MenuVO> menu,int number) {
-		String sql = "insert into M_KIOSK_ORDER values (?,?,?)";
+		String sql = "insert into M_KIOSK_ORDER(ORDERNO,MENU,PRICE) values (?,?,?)";
 		
 		getPstmt(sql);
 		
@@ -74,6 +78,37 @@ public class M_Kiosk_Server_DAO {
 			e.printStackTrace();
 		}
 		return detail_order;
+	}
+	
+	public void selectSales(Date date) {
+		Server_Sales.memoArea.setText("");
+		Server_Sales.memoArea.append("메뉴 \t\t 금액\n");
+		int price_sum = 0;
+		String sql = "select menu,price from m_kiosk_order where to_char(orderdate,'YYYY/MM/DD') = ?";
+		getPstmt(sql);
+		try {
+			pstmt.setDate(1, date);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				if(rs.getString(1).equals("더블치즈버거-세트") || rs.getString(1).equals("맥치킨버거-세트") ||  
+						rs.getString(1).equals("에그불고기버거-세트")) {
+					Server_Sales.memoArea.append(rs.getString(1) + "\t");
+					Server_Sales.memoArea.append(rs.getInt(2) + "\n");
+					price_sum += rs.getInt(2);
+				}else {
+					Server_Sales.memoArea.append(rs.getString(1) + "\t\t");
+					Server_Sales.memoArea.append(rs.getInt(2) + "\n");
+					price_sum += rs.getInt(2);
+				}
+					
+			}
+			Server_Sales.memoArea.append("---------------------------------------------\n");
+			Server_Sales.memoArea.append("총 금액: \t\t" + price_sum);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public void exit() {

@@ -56,7 +56,6 @@ public class Server_ActionEvent extends MouseAdapter implements ActionListener {
 		for(int i=0;i<ServerThread.wating_list.size();i++) {
 			if(e.getSource() == wnumber.get(i)) {
 				completenumber = Integer.parseInt(wnumber.get(i).getText().substring(0,1));
-				System.out.println("comletenumber: " + completenumber);
 				int removenumber = ServerThread.wating_list.indexOf(completenumber);
 				ServerThread.wating_list.remove(removenumber);
 				wnumber.clear();
@@ -104,7 +103,6 @@ public class Server_ActionEvent extends MouseAdapter implements ActionListener {
 	}
 	
 	public void redraw() {
-		System.out.println("redraw()실행");
 		Font font = new Font("맑은 고딕",Font.BOLD,15);
 		Server_UI.grid_panel.removeAll();
 		ArrayList<JButton> jbtn = null;
@@ -157,13 +155,12 @@ public class Server_ActionEvent extends MouseAdapter implements ActionListener {
 		}else if(obj == main.b_cus_call) {
 			redraw_click();
 		}else if(obj == main.b_1) {
-			new Server_Sales();
+			new Server_Sales(st);
 		}
 		// ** 호출버튼 클릭 후 다시 그렸을때 상세보기 버튼 기능
 		else if(true) {
 			for(int i=0; i<jbt_list.size(); i++) {
 				if(obj == jbt_list.get(i)) {
-					System.out.println("버튼 클릭 시발");
 					String detail_number = jbt_list.get(i).getText().substring(0,1);
 					int int_detail_number = Integer.valueOf(detail_number);
 					ArrayList<MenuVO> menu = new ArrayList<MenuVO>();

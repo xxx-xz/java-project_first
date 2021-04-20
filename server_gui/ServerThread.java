@@ -39,7 +39,7 @@ public class ServerThread extends Thread implements ActionListener{
 	}
 	
 	@Override
-	synchronized  public void run() {
+	public void run() {
 		try {
 			while(true) {
 				System.out.println("ServerThread 시작");
@@ -55,16 +55,13 @@ public class ServerThread extends Thread implements ActionListener{
 				JLabel lab = new JLabel("주문번호");
 				wnumber = new JLabel(String.valueOf(Server_UI.num-1) + "번");
 				wating_list.add(Server_UI.num-1);
-				for(int i=0;i <wating_list.size(); i++) {
-					System.out.print(wating_list.get(i) + ",");
-				}
 				detail = new JButton(String.valueOf(Server_UI.num-1) + "번 상세보기");
 				lab.setFont(font1);
 				wnumber.setFont(font1);
 				wnumber.setBackground(Color.red);
 				detail.setFont(font1);
 				detail.setBackground(Color.lightGray);
-				detail.setSize(70,70);
+				detail.setSize(100,70);
 				
 				pp.add(lab);
 				pp.add(wnumber);

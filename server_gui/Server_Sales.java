@@ -6,6 +6,7 @@ package server_gui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -13,6 +14,7 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.sql.Date;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
@@ -39,6 +41,10 @@ class CalendarDataManager{ // 6*7�迭�� ��Ÿ�� �޷� ����
 	int calLastDate;
 	Calendar today = Calendar.getInstance();
 	Calendar cal;
+	public static String choiceDate;
+	String month;
+	String day;
+	
 	
 	public CalendarDataManager(){ 
 		setToday(); 
@@ -91,7 +97,7 @@ public class Server_Sales extends CalendarDataManager{ // CalendarDataManager�
 	// â ������ҿ� ��ġ��
 	JFrame mainFrame;
 //		ImageIcon icon = new ImageIcon ( Toolkit.getDefaultToolkit().getImage(getClass().getResource("icon.png")));
-	
+	static ServerThread st;
 	JPanel calOpPanel;
 		JButton todayBut;
 		JLabel todayLab;
@@ -112,7 +118,7 @@ public class Server_Sales extends CalendarDataManager{ // CalendarDataManager�
 	
 	JPanel memoPanel;
 		JLabel selectedDate,totallab;
-		JTextArea memoArea;
+		public static JTextArea memoArea;
 		JScrollPane memoAreaSP;
 		JPanel memoSubPanel;
 		JButton saveBut; 
@@ -122,8 +128,8 @@ public class Server_Sales extends CalendarDataManager{ // CalendarDataManager�
 	JPanel frameBottomPanel;
 //		JLabel bottomInfo = new JLabel("Welcome to Memo Calendar!");
 	//���, �޼���
-	final String WEEK_DAY_NAME[] = { "SUN", "MON", "TUE", "WED", "THR", "FRI", "SAT" };
-	final String title = "������Ȳ";
+	final String WEEK_DAY_NAME[] = { "일", "월", "화", "수", "목", "금", "토" };
+	final String title = "매출조회";
 //	final String SaveButMsg1 = "�� MemoData������ �����Ͽ����ϴ�.";
 //	final String SaveButMsg2 = "�޸� ���� �ۼ��� �ּ���.";
 //	final String SaveButMsg3 = "<html><font color=red>ERROR : ���� ���� ����</html>";
@@ -135,12 +141,12 @@ public class Server_Sales extends CalendarDataManager{ // CalendarDataManager�
 	public static void main(String[] args){
 		SwingUtilities.invokeLater(new Runnable(){
 			public void run(){
-				new Server_Sales();
+				new Server_Sales(st);
 			}
 		});
 	}
-	public Server_Sales(){ //������� ������ ���ĵǾ� ����. �� �ǳ� ���̿� ���ٷ� ����
-		
+	public Server_Sales(ServerThread st){ //������� ������ ���ĵǾ� ����. �� �ǳ� ���̿� ���ٷ� ����
+		this.st = st;
 		mainFrame = new JFrame(title);
 		mainFrame.setSize(700,400);
 		mainFrame.setLocationRelativeTo(null);
@@ -154,9 +160,9 @@ public class Server_Sales extends CalendarDataManager{ // CalendarDataManager�
 //		}
 		
 		calOpPanel = new JPanel();
-			todayBut = new JButton("Today");
-			todayBut.setToolTipText("Today");
-			todayBut.addActionListener(lForCalOpButtons);
+//			todayBut = new JButton("Today");
+//			todayBut.setToolTipText("Today");
+//			todayBut.addActionListener(lForCalOpButtons);
 			todayLab = new JLabel(today.get(Calendar.MONTH)+1+"/"+today.get(Calendar.DAY_OF_MONTH)+"/"+today.get(Calendar.YEAR));
 			lYearBut = new JButton("<<");
 			lYearBut.setToolTipText("Previous Year");
@@ -182,11 +188,11 @@ public class Server_Sales extends CalendarDataManager{ // CalendarDataManager�
 			calOpGC.insets = new Insets(5,5,0,0);
 			calOpGC.anchor = GridBagConstraints.WEST;
 			calOpGC.fill = GridBagConstraints.NONE;
-			calOpPanel.add(todayBut,calOpGC);
-			calOpGC.gridwidth = 3;
-			calOpGC.gridx = 2;
-			calOpGC.gridy = 1;
 			calOpPanel.add(todayLab,calOpGC);
+//			calOpGC.gridwidth = 3;
+//			calOpGC.gridx = 2;
+//			calOpGC.gridy = 1;
+//			calOpPanel.add(todayLab,calOpGC);
 			calOpGC.anchor = GridBagConstraints.CENTER;
 			calOpGC.gridwidth = 1;
 			calOpGC.gridx = 1;
@@ -443,7 +449,28 @@ public class Server_Sales extends CalendarDataManager{ // CalendarDataManager�
 //			else if(dDay < 0) dDayString = "D+"+(dDay)*(-1);
 //			
 //			selectedDate.setText("<Html><font size=3>"+(calMonth+1)+"/"+calDayOfMon+"/"+calYear+"&nbsp;("+dDayString+")</html>");
-			System.out.println(dateButs[k][l].getText());
+			
+			int mon = calMonth;
+			mon = mon+1;
+			if(mon < 10) {
+				month = "0" + String.valueOf(mon);
+			}else {
+				month = String.valueOf(mon);
+			}
+			
+			if(Integer.parseInt(dateButs[k][l].getText()) < 10 ) {
+				day = "0" + dateButs[k][l].getText();
+			}else {
+				day = dateButs[k][l].getText();
+			}
+			
+			
+			choiceDate = String.valueOf(calYear) + "-" +  month + "-" + day;
+			Date ch_choiceDate = Date.valueOf(choiceDate);
+			
+			memoArea.append("메뉴 \t\t 금액");
+			memoArea.setFont(new Font("맑은 고딕",Font.BOLD,10));
+			st.sdao.selectSales(ch_choiceDate);
 //			sdao.getSales(dateButs[k][l].getText());
 //			readMemo();
 		}

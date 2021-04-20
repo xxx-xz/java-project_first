@@ -9,7 +9,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.ArrayList;
+import java.net.Socket;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -22,12 +22,14 @@ public class ClientThread extends Thread implements ActionListener{
 	int watingnumber;
 	JButton reset;
 	JFrame jf;
+	Socket s;
 //	public static ArrayList<Integer> wating_list = new ArrayList<Integer>();
 	
 	public ClientThread (Client_Send send) {
 		ois = send.ois;
 		oos = send.oos;
 		watingnumber = send.watingnumber;
+		s = send.s;
 		
 	}
 	
@@ -35,8 +37,10 @@ public class ClientThread extends Thread implements ActionListener{
 	public void run() {
 		try {
 			while(true) {
-				
+				System.out.println("Client Thread : ois.readObject 실행 전");
 				watingnumber = (int)ois.readObject();
+				
+				System.out.println("Client Thread : ois.readObject 실행 후");
 //				wating_list.add(watingnumber);
 				init();
 			}
@@ -47,7 +51,6 @@ public class ClientThread extends Thread implements ActionListener{
 	
 	public void init() {
 		String number = watingnumber + "번";
-		System.out.println(number);
 		
 		jf = new JFrame("결제완료");
 		JPanel jp = new JPanel(new BorderLayout());
@@ -79,7 +82,12 @@ public class ClientThread extends Thread implements ActionListener{
 				jf.setVisible(false);
 				Client_UI.order_menu_list.clear();
 				Client_UI.order_menu.setText("");
-				Client_UI.order_menu.append("메뉴\t\t\t\t\t수량\t\t\t\t\t금액\n");
+				Client_UI.order_menu.append("메뉴\t\t\t\t수량\t\t\t\t금액\n");
+				try {
+					s.close();
+				} catch (Exception e2) {
+					e2.printStackTrace();
+				}
 			}
 		});
 //		try {
@@ -97,7 +105,12 @@ public class ClientThread extends Thread implements ActionListener{
 			jf.setVisible(false);
 			Client_UI.order_menu_list.clear();
 			Client_UI.order_menu.setText("");
-			Client_UI.order_menu.append("메뉴\t\t\t\t\t수량\t\t\t\t\t금액\n");
+			Client_UI.order_menu.append("메뉴\t\t\t\t수량\t\t\t\t금액\n");
+			try {
+				s.close();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
 		}
 		
 	}
