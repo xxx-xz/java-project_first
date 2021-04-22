@@ -63,6 +63,8 @@ public class Server_ActionEvent extends MouseAdapter implements ActionListener {
 				Server_UI.ta_screan.setText("");
 			}
 		}
+		Server_UI.CompleteSend(completenumber);
+		
 	}
 	
 	public void redraw_click() {

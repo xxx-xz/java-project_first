@@ -36,14 +36,14 @@ public class ClientThread extends Thread implements ActionListener{
 	@Override
 	public void run() {
 		try {
-			while(true) {
+//			while(true) {
 				System.out.println("Client Thread : ois.readObject 실행 전");
 				watingnumber = (int)ois.readObject();
 				
 				System.out.println("Client Thread : ois.readObject 실행 후");
 //				wating_list.add(watingnumber);
 				init();
-			}
+//			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -90,12 +90,6 @@ public class ClientThread extends Thread implements ActionListener{
 				}
 			}
 		});
-//		try {
-//			M_Keyosk_Send.s.close();
-//		} catch (Exception e) {
-//			System.out.println("socket Close ����");
-//			e.printStackTrace();
-//		}
 	}
 
 	@Override
@@ -106,11 +100,6 @@ public class ClientThread extends Thread implements ActionListener{
 			Client_UI.order_menu_list.clear();
 			Client_UI.order_menu.setText("");
 			Client_UI.order_menu.append("메뉴\t\t\t\t수량\t\t\t\t금액\n");
-			try {
-				s.close();
-			} catch (Exception e2) {
-				e2.printStackTrace();
-			}
 		}
 		
 	}

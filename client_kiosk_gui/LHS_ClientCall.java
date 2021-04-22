@@ -1,13 +1,13 @@
 package client_kiosk_gui;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Panel;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -92,18 +92,54 @@ public class LHS_ClientCall extends JFrame{
 
 	static class ClientCallThread extends Thread {
 		
+		ArrayList<Integer> preparing_n = new ArrayList<Integer>();
+		ArrayList<Integer> complete_n = new ArrayList<Integer>();
+		
 		@Override
 		public void run() {
 			try {
 				while(true) {
-					System.out.println("while문 실행");
-					int watingnumber = (int)ois.readObject();
-					Panel wpanel = new Panel();
-					JLabel watinglab = new JLabel(String.valueOf(watingnumber));
-					System.out.println(watingnumber);
-					wpanel.add(watinglab);
-					preparing.add(wpanel);
-					System.out.println("while문 1사이클 종료");
+					Integer watingnumber = (Integer)ois.readObject();
+					preparing_n.add(watingnumber);
+					System.out.println("대기/완료 체크");
+					for(int i=0; i<preparing_n.size(); i++) {
+						if(preparing_n.get(i) != watingnumber) {
+							preparing_n.add(watingnumber);
+						}else {
+							preparing_n.remove(preparing_n.indexOf(watingnumber));
+							complete_n.add(watingnumber);
+						}
+					}
+					for(int i=0; i<preparing_n.size(); i++) {
+						System.out.print("preparing_n : " + preparing_n.get(i));
+						System.out.println();
+					}
+					for(int i=0; i<complete_n.size(); i++) {
+						System.out.print("complete_n : " + complete_n.get(i));
+						System.out.println();
+					}
+					
+					System.out.println("준비중 패널 다시그리기");
+					for(int i=0; i<preparing_n.size(); i++) {
+						Panel p = new Panel();
+						JLabel jl = new JLabel(String.valueOf(preparing_n.get(i)));
+						p.add(jl);
+						
+						preparing.add(p);
+					}
+					preparing.revalidate();
+					preparing.repaint();
+					
+					System.out.println("완료 패널 다시그리기");
+					for(int i=0; i<complete_n.size(); i++) {
+						Panel p = new Panel();
+						JLabel jl = new JLabel(String.valueOf(complete_n.get(i)));
+						p.add(jl);
+						
+						complete.add(p);
+					}
+					complete.revalidate();
+					complete.repaint();
 				}
 			} catch (Exception e) {
 				e.printStackTrace();

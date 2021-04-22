@@ -182,8 +182,17 @@ public class Server_UI extends JFrame{
 				os.writeObject(num);
 			}
 			num++;
-			boos.clear();
+//			boos.clear();
 			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	static public void CompleteSend(int comnumber) {
+		try {
+			for(ObjectOutputStream os : boos) {
+				os.writeObject(comnumber);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

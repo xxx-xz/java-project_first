@@ -19,7 +19,7 @@ import server_kiosk_dao.M_Kiosk_Server_DAO;
 import server_system.Server_ActionEvent;
 
 public class ServerThread extends Thread implements ActionListener{
-	ObjectOutputStream oos;
+	public static ObjectOutputStream oos;
 	ObjectInputStream ois;
 	JButton detail;
 	public static JPanel pp;
@@ -45,7 +45,7 @@ public class ServerThread extends Thread implements ActionListener{
 				System.out.println("ServerThread 시작");
 				ArrayList<MenuVO> menu =(ArrayList<MenuVO>)ois.readObject();
 				Server_UI.Casting();
-				
+				System.out.println("메뉴어레이리스트의 사이즈  " + menu.size());
 				// ** DB에 주문내역과 대기번호 Insert **
 				sdao.insertorder(menu,Server_UI.num-1);
 				
@@ -84,6 +84,7 @@ public class ServerThread extends Thread implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// ** 상세보기 버튼 클릭시 우측에 메뉴 출력
+		System.out.println("상세보기 버튼 클릭");
 		if(e.getSource() == detail) {
 			String detail_number = detail.getText().substring(0,1);
 			int int_detail_number = Integer.valueOf(detail_number);

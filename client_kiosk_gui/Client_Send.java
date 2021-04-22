@@ -30,7 +30,6 @@ public class Client_Send {
 		oos = new ObjectOutputStream(s.getOutputStream());
 		ois = new ObjectInputStream(s.getInputStream());
 		oos.writeObject(order_list);
-//		oos.writeObject(null);
 		new ClientThread(this).start();
 		
 	}
