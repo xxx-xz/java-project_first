@@ -13,6 +13,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import server_gui.Commons;
+
 
 
 
@@ -71,10 +73,11 @@ public class LHS_ClientCall extends JFrame{
 		f.add(BorderLayout.NORTH, label_panel);
         ////////////////////////////////////////////////////////////////////////////////// 
         ///////////////////////////////////PANEL
-        complete = new JPanel(new GridLayout(5,1));
-         
+        complete = new JPanel(new GridLayout(4,5));
+        complete.setFont(Commons.getFont());
 
-        preparing = new JPanel(new GridLayout(5,1));
+        preparing = new JPanel(new GridLayout(4,5));
+        preparing.setFont(Commons.getFont());
          
         tf_panel.add(preparing); 
         tf_panel.add(complete);
@@ -99,47 +102,56 @@ public class LHS_ClientCall extends JFrame{
 		public void run() {
 			try {
 				while(true) {
-					Integer watingnumber = (Integer)ois.readObject();
-					preparing_n.add(watingnumber);
-					System.out.println("대기/완료 체크");
-					for(int i=0; i<preparing_n.size(); i++) {
-						if(preparing_n.get(i) != watingnumber) {
-							preparing_n.add(watingnumber);
-						}else {
-							preparing_n.remove(preparing_n.indexOf(watingnumber));
-							complete_n.add(watingnumber);
+					int watingnumber = (int)ois.readObject();
+					System.out.println(watingnumber);
+					
+					
+					if(watingnumber >= 200) {
+						watingnumber = watingnumber - 100;
+						preparing_n.remove(preparing_n.indexOf(watingnumber));
+						complete_n.add(watingnumber);
+						
+						complete.removeAll();
+						for(int i=0; i<complete_n.size(); i++) {
+							Panel p = new Panel(new GridLayout(4,5));
+							JLabel jl = new JLabel(String.valueOf(complete_n.get(i)));
+							jl.setFont(Commons.getFont());
+							p.add(jl);
+							
+							complete.add(p);
 						}
-					}
-					for(int i=0; i<preparing_n.size(); i++) {
-						System.out.print("preparing_n : " + preparing_n.get(i));
-						System.out.println();
-					}
-					for(int i=0; i<complete_n.size(); i++) {
-						System.out.print("complete_n : " + complete_n.get(i));
-						System.out.println();
-					}
-					
-					System.out.println("준비중 패널 다시그리기");
-					for(int i=0; i<preparing_n.size(); i++) {
-						Panel p = new Panel();
-						JLabel jl = new JLabel(String.valueOf(preparing_n.get(i)));
-						p.add(jl);
 						
-						preparing.add(p);
-					}
-					preparing.revalidate();
-					preparing.repaint();
-					
-					System.out.println("완료 패널 다시그리기");
-					for(int i=0; i<complete_n.size(); i++) {
-						Panel p = new Panel();
-						JLabel jl = new JLabel(String.valueOf(complete_n.get(i)));
-						p.add(jl);
+						complete.revalidate();
+						complete.repaint();
 						
-						complete.add(p);
+						System.out.println(preparing_n.size());
+						
+						preparing.removeAll();
+						for(int i=0; i<preparing_n.size(); i++) {
+							Panel p = new Panel();
+							JLabel jl = new JLabel(String.valueOf(preparing_n.get(i)));
+							jl.setFont(Commons.getFont());
+							p.add(jl);
+							
+							preparing.add(p);
+						}
+						preparing.revalidate();
+						preparing.repaint();
+					}else {
+						preparing_n.add(watingnumber);
+						
+						preparing.removeAll();
+						for(int i=0; i<preparing_n.size(); i++) {
+							Panel p = new Panel();
+							JLabel jl = new JLabel(String.valueOf(preparing_n.get(i)));
+							p.add(jl);
+							
+							preparing.add(p);
+						}
+						
+						preparing.revalidate();
+						preparing.repaint();
 					}
-					complete.revalidate();
-					complete.repaint();
 				}
 			} catch (Exception e) {
 				e.printStackTrace();

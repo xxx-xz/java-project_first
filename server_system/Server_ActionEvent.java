@@ -55,7 +55,7 @@ public class Server_ActionEvent extends MouseAdapter implements ActionListener {
 	public void mouseClicked(MouseEvent e) {
 		for(int i=0;i<ServerThread.wating_list.size();i++) {
 			if(e.getSource() == wnumber.get(i)) {
-				completenumber = Integer.parseInt(wnumber.get(i).getText().substring(0,1));
+				completenumber = Integer.parseInt(wnumber.get(i).getText().substring(0,3));
 				int removenumber = ServerThread.wating_list.indexOf(completenumber);
 				ServerThread.wating_list.remove(removenumber);
 				wnumber.clear();
@@ -72,7 +72,7 @@ public class Server_ActionEvent extends MouseAdapter implements ActionListener {
 		Server_UI.grid_panel.removeAll();
 		wnumber.clear();
 		for(int i=0;i<ServerThread.wating_list.size();i++) {
-			
+			System.out.println("웨이팅 리스티 " + ServerThread.wating_list.get(i));
 			JLabel wnum = new JLabel(String.valueOf(ServerThread.wating_list.get(i) + "번"));
 			wnumber.add(wnum);
 			wnumber.get(i).setForeground(Color.red);
@@ -85,7 +85,7 @@ public class Server_ActionEvent extends MouseAdapter implements ActionListener {
 		for(int i=0;i<ServerThread.wating_list.size();i++) {
 			JPanel pan = new JPanel(new GridLayout(1,3));
 			JLabel label = new JLabel("주문번호");
-			JButton btn = new JButton(String.valueOf(ServerThread.wating_list.get(i) + "번 " + "상세보기"));
+			JButton btn = new JButton(String.valueOf(ServerThread.wating_list.get(i) + "번 " + "내역"));
 			
 			
 			btn.setBackground(Color.lightGray);
@@ -123,7 +123,7 @@ public class Server_ActionEvent extends MouseAdapter implements ActionListener {
 			JLabel label = new JLabel("주문번호");
 			
 			
-			JButton button= new JButton(String.valueOf(ServerThread.wating_list.get(i) + "번 " + "상세보기"));
+			JButton button= new JButton(String.valueOf(ServerThread.wating_list.get(i) + "번 " + "내역"));
 			jbt_list.add(button);
 			
 			
@@ -163,7 +163,7 @@ public class Server_ActionEvent extends MouseAdapter implements ActionListener {
 		else if(true) {
 			for(int i=0; i<jbt_list.size(); i++) {
 				if(obj == jbt_list.get(i)) {
-					String detail_number = jbt_list.get(i).getText().substring(0,1);
+					String detail_number = jbt_list.get(i).getText().substring(0,3);
 					int int_detail_number = Integer.valueOf(detail_number);
 					ArrayList<MenuVO> menu = new ArrayList<MenuVO>();
 					menu = st.sdao.selectOrder(int_detail_number);

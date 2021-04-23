@@ -34,7 +34,7 @@ public class Server_UI extends JFrame{
 	Date datetoday;
 	ServerSocket server;
 	Socket s;
-	static int num = 1;
+	static int num = 100;
 	public static ServerThread st;
 	static ArrayList<ObjectOutputStream> boos = new ArrayList<ObjectOutputStream>();
 	Server_ActionEvent event = new Server_ActionEvent(this,st);;
@@ -191,7 +191,7 @@ public class Server_UI extends JFrame{
 	static public void CompleteSend(int comnumber) {
 		try {
 			for(ObjectOutputStream os : boos) {
-				os.writeObject(comnumber);
+				os.writeObject(comnumber+100);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
