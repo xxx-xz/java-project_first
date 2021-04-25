@@ -22,6 +22,8 @@ import server_system.Server_ActionEvent;
 
 public class Server_UI extends JFrame{
 	//Field
+	String time;
+	JLabel now;
 	public static JPanel grid_panel = new JPanel(new GridLayout(8,3));
 	static JPanel line_panel; 
 	JLabel l_order, l_cus_call ,l_order_stic,top_label;
@@ -31,7 +33,7 @@ public class Server_UI extends JFrame{
 	public JButton b_cus_call, serch, b_1, b_2, b_3;
 	static JLayeredPane layeredPane;
 	SimpleDateFormat format1 = new SimpleDateFormat( "yyyy-MM-dd HH:mm:ss");
-	Date datetoday;
+	Date datetoday = new Date();;
 	ServerSocket server;
 	Socket s;
 	static int num = 100;
@@ -73,14 +75,16 @@ public class Server_UI extends JFrame{
     		ImageIcon img1 = new ImageIcon("keyosk_images/serch.png");
     		
     		/** 오늘날짜 **/
-    		datetoday = new Date();
-    		String time = format1.format(datetoday);
-    		JLabel now = new JLabel(time);
-    		//        top_label = new JLabel("주문현황");
-    		now.setBounds(62, 50, 200, 30);
+    		JPanel nn = new JPanel();
+    		now = new JLabel();
+    		nn.add(now);
+    		nn.setBounds(62, 50, 200, 30);
     		Font font1 = new Font("맑은 고딕",Font.BOLD,20);
-    		now.setFont(font1);
-    		layeredPane.add(now);
+    		nn.setFont(font1);
+    		layeredPane.add(nn);
+    		setTime();
+    		
+    	
     		
     		
     		/** 주문내역**/
@@ -155,6 +159,22 @@ public class Server_UI extends JFrame{
     		
     		serverStart();
 	}
+	
+	public void setTime() {
+		while(true) {
+			time = format1.format(datetoday);
+			now.setText(time);
+			
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+	
+		
+		}
+	
 	public void serverStart() {
 		try {
 			server = new ServerSocket(5555);
