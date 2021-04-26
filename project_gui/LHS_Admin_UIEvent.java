@@ -45,14 +45,12 @@ public class LHS_Admin_UIEvent  implements ActionListener {
 				
 				LHS_Admin_VO member = new LHS_Admin_VO();
 				member.setId(jlist.get(0).getText());
-				System.out.println("Action");
 				member.setPass(jlist.get(1).getText());
 				member.setHp1(jlist.get(2).getText());
 				member.setHp2(jlist.get(3).getText());
 				member.setHp3(jlist.get(4).getText());
 				member.setMail1(jlist.get(5).getText());
 				member.setMail2(jlist.get(6).getText());
-				System.out.println("Action2");
 				
 				boolean result = main.system.join(member);
 				
@@ -61,6 +59,8 @@ public class LHS_Admin_UIEvent  implements ActionListener {
 				if(result) {
 					JOptionPane.showMessageDialog(null, 
 							Commons.getMsg("회원가입 성공"));
+					
+					new LHS_Admin_Login();
 					for(Object obj2 : ui.list) {
 						JTextField tf = (JTextField)obj2;
 						tf.setText("");
@@ -92,7 +92,8 @@ public class LHS_Admin_UIEvent  implements ActionListener {
 		for(int i=0; i<ui.list.size(); i++) {
 			JTextField tf = (JTextField)ui.list.get(i);
 			
-			if(tf.getText().equals("")) {
+			
+			 if(tf.getText().equals("")) {
 				JOptionPane.showMessageDialog(null, 
 						Commons.getMsg(ui.namelist[i]+"를 입력해주세요"));
 				tf.requestFocus();
@@ -102,7 +103,13 @@ public class LHS_Admin_UIEvent  implements ActionListener {
 			}
 		}
 		
-		return result;
+		
+		 if(!ui.passwordField.equals(ui.passwordField2)) {
+			JOptionPane.showMessageDialog(null, 
+					Commons.getMsg("비밀번호가 일치하지 않습니다."));
+		
+		}
+		 return result;
 	}
 	
 	

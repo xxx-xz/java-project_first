@@ -125,6 +125,7 @@ public class LHS_Admin_Login extends JFrame implements ActionListener {
         
         join_bt.addActionListener(this);
         login_bt.addActionListener(this);
+        passch_bt.addActionListener(this);
                                 
        join_bt.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent arg0) {
@@ -153,7 +154,11 @@ public class LHS_Admin_Login extends JFrame implements ActionListener {
         	 if (obj == login_bt) {
         		 login_proc();
         	 }else if(obj == passch_bt) {
-        		 passch_proc();
+        		 dispose();
+        		 new LHS_AdminPass(this,system);
+        	 }else if (obj == join_bt) {
+        		 dispose();
+        		 new LHS_Admin_Join();
         	 }
          }
        public void login_proc() {
