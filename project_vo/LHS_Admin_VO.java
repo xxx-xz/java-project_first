@@ -1,23 +1,7 @@
 package project_vo;
 
 public class LHS_Admin_VO {
-	String id, pass, pass2, hp1, hp2, hp3, mail1, mail2;
-
-	public String getMail1() {
-		return mail1;
-	}
-
-	public void setMail1(String mail1) {
-		this.mail1 = mail1;
-	}
-
-	public String getMail2() {
-		return mail2;
-	}
-
-	public void setMail2(String mail2) {
-		this.mail2 = mail2;
-	}
+	String id, pass, hp1, hp2, hp3, mail1, mail2;
 
 	public String getId() {
 		return id;
@@ -33,14 +17,6 @@ public class LHS_Admin_VO {
 
 	public void setPass(String pass) {
 		this.pass = pass;
-	}
-
-	public String getPass2() {
-		return pass2;
-	}
-
-	public void setPass2(String pass2) {
-		this.pass2 = pass2;
 	}
 
 	public String getHp1() {
@@ -67,5 +43,22 @@ public class LHS_Admin_VO {
 		this.hp3 = hp3;
 	}
 
+	public String getMail1() {
+		return mail1;
+	}
+
+	public void setMail1(String mail1) {
+		this.mail1 = mail1;
+	}
+
+	public String getMail2() {
+		return mail2;
+	}
+
+	public void setMail2(String mail2) {
+		this.mail2 = mail2;
+	}
+
+	
 	
 }
