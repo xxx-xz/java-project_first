@@ -32,7 +32,7 @@ public class LHS_Admin_MemberDAO extends LHS_Admin_DBConn{
 	public boolean getJoinResult(LHS_Admin_VO member) {
 		boolean result = false;
 		try {
-			System.out.println("dqdqdqdqdq");
+			
 			String sql = "insert into admin_member values(?, ?, ?, ?)";
 			getPreparedStatement(sql);
 			
@@ -50,6 +50,57 @@ public class LHS_Admin_MemberDAO extends LHS_Admin_DBConn{
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		return result;
+	}
+	
+	public boolean search(String id, String email) {
+		boolean result = false;
+		try {
+			String sql = " SELECT COUNT(*) FROM ADMIN_MEMBER " + 
+					" WHERE ID=? AND MAIL=?";
+			getPreparedStatement(sql);
+			
+			
+			pstmt.setString(1, id);
+			pstmt.setString(2, email);
+			//pstmt.setString(3, member.getMail2());
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				if(rs.getInt(1) == 1) result = true;
+				
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+	public int update(String id, String pass, String pass2) {
+		System.out.println("dao");
+		System.out.println(id);
+		int result = 0;
+		try {
+			String sql = "UPDATE ADMIN_MEMBER"
+					+ " SET"
+					+ " PASS = ?"
+					+ " WHERE"
+					+ " ID = ?";
+			getPreparedStatement(sql);
+			
+			
+			pstmt.setString(1, pass);
+			pstmt.setString(2, id);
+//			pstmt.setString(3, pass2);
+			result = pstmt.executeUpdate();	
+			System.out.println("sql return :  " + result);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
 		return result;
 	}
 }
