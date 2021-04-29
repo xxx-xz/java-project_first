@@ -84,11 +84,7 @@ public class LHS_Admin_MemberDAO extends DBConn{
 		System.out.println(id);
 		int result = 0;
 		try {
-			String sql = "UPDATE ADMIN_MEMBER"
-					+ " SET"
-					+ " PASS = ?"
-					+ " WHERE"
-					+ " ID = ?";
+			String sql =" UPDATE ADMIN_MEMBER SET PASS =? WHERE ID = ? ";
 			getPstmt(sql);
 			
 			

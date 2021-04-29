@@ -24,7 +24,7 @@ public class LHS_AdminPass implements ActionListener{
 	JTextField id_field, email_field;
 	JButton ch_bt;
 	ArrayList<Object> list = new ArrayList<Object>();
-	String id;
+	static String id;
 	
 	public LHS_AdminPass() {
 		init();
@@ -62,6 +62,7 @@ public class LHS_AdminPass implements ActionListener{
 		f.setVisible(true);
 		f.setSize(300,150);
 		ch_bt.addActionListener(this);
+		f.setLocationRelativeTo(null);
 		
 		
 		
@@ -73,6 +74,7 @@ public class LHS_AdminPass implements ActionListener{
 		String name = e.getActionCommand();
 		if(obj == ch_bt){
 			ch_proc();
+			
 		}
 		
 		else {
@@ -96,10 +98,12 @@ public class LHS_AdminPass implements ActionListener{
 			 
 			 boolean result = system.search(id_field.getText(), email_field.getText());
 			 id = id_field.getText();
+			 System.out.println("pass re " + id);
 			 
 			 if(result) {
 				 //this.dispose(); 
 				new  LHS_Admin_PassRe(system);
+				
 						 
 				 	
 			 }else {

@@ -134,7 +134,7 @@ public class Server_UI extends JFrame {
 
 		b_cus_call.addActionListener(event);
 
-		serverStart();
+		//serverStart();
 	}
 
 	public void setTime() {
@@ -165,6 +165,7 @@ public class Server_UI extends JFrame {
 			server = new ServerSocket(5555);
 			System.out.println("--->서버1시작.....");
 			while (true) {
+				System.out.println("dtd");
 				s = server.accept();
 				System.out.println("클라이언트 접속!!");
 				st = new ServerThread(s);

@@ -176,6 +176,7 @@ public class LHS_Admin_Join extends JFrame{
         setVisible(true);
         
         join_bt.addActionListener(new LHS_Admin_UIEvent(this));
+        setLocationRelativeTo(null);
         
        // join_bt.addActionListener(new joinUIEvent(this));
     }

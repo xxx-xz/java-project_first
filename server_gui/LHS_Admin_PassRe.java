@@ -62,6 +62,7 @@ public class LHS_Admin_PassRe implements ActionListener {
 		f.setVisible(true);
 		f.setSize(300,150);
 		bt.addActionListener(this);
+		f.setLocationRelativeTo(null);
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -94,10 +95,11 @@ public class LHS_Admin_PassRe implements ActionListener {
 		 }else {
 			 int result = system.update(pass.id, pass_field.getText(), pass2_field.getText());
 			 System.out.println(result);
-			 if(result == 0) {
+			 if(result == 1) {
 				 System.out.println("비밀번호변경 완료");
 				 JOptionPane.showMessageDialog(null, 
   						Commons.getMsg("비밀번호 변경완료"));
+				 //f.dispose();
 				 new LHS_Admin_Login();
 			 }else {
 				 JOptionPane.showMessageDialog(null, 

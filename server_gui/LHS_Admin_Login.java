@@ -6,7 +6,6 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -45,7 +44,7 @@ public class LHS_Admin_Login extends JFrame implements ActionListener {
 		
         setTitle("로그인 테스트");
         setSize(450, 635);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+       // setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
  
         // 레이아웃 설정
         setLayout(null);
@@ -117,12 +116,15 @@ public class LHS_Admin_Login extends JFrame implements ActionListener {
         layeredPane.add(passch_bt);
         layeredPane.add(login_Label);
         layeredPane.add(Pass_Label);
+        
+        
+        
  
         // 마지막 추가들
         layeredPane.add(panel);
         add(layeredPane);
         setVisible(true);
-        
+        setLocationRelativeTo(null);
         join_bt.addActionListener(this);
         login_bt.addActionListener(this);
         passch_bt.addActionListener(this);
@@ -137,9 +139,9 @@ public class LHS_Admin_Login extends JFrame implements ActionListener {
         
     }
     
-    public void windowClosing(WindowEvent e) {
-	dispose();
-	}
+//    public void windowClosing(WindowEvent e) {
+//	dispose();
+//	}
     
     
          class MyPanel extends JPanel {
@@ -153,11 +155,14 @@ public class LHS_Admin_Login extends JFrame implements ActionListener {
         	 Object obj = e.getSource();
         	 if (obj == login_bt) {
         		 login_proc();
+        		// this.setVisible(false);
+        		 
+        		 //new Server_UI();
         	 }else if(obj == passch_bt) {
-        		 dispose();
+        //		 dispose();
         		 new LHS_AdminPass(this,system);
         	 }else if (obj == join_bt) {
-        		 dispose();
+        	//	 dispose();
         		 new LHS_Admin_Join();
         	 }
          }
@@ -177,22 +182,20 @@ public class LHS_Admin_Login extends JFrame implements ActionListener {
         		 
         		 boolean result = system.logincheck(loginTextField.getText(), passwordField.getText());
         		 if(result) {
-        			 System.out.println("로그인 성공");
         			 JOptionPane.showMessageDialog(null, 
      						Commons.getMsg("로그인 성공"));
-        			 dispose();
+        			// dispose();
+//        			 setVisible(false);
         			 new Server_UI();
         			
         		 }else {
-        			 System.out.println("로그인 실패");
+        			
         			 JOptionPane.showMessageDialog(null, 
      						Commons.getMsg("로그인 실패"));
         		 }
         	 }
        }
-       public void passch_proc() {
-    	   
-       }
+     
 	}
 	
 
